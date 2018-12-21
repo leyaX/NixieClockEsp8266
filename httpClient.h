@@ -11,14 +11,14 @@ HTTPClient http;
 
         http.begin(presetToRadio); //HTTP
       
-        dbgprint("[HTTP] GET...\n");
+        dbgprint("\n[HTTP] GET...\n");
         // start connection and send HTTP header
         int httpCode = http.GET();
 
         // httpCode will be negative on error
         if(httpCode > 0) {
             // HTTP header has been send and Server response header has been handled
-            dbgprint("[HTTP] GET... code: %d", httpCode);
+            dbgprint("[HTTP] GET... code: %d\n", httpCode);
            
             // file found at server
             if(httpCode == HTTP_CODE_OK) {
@@ -61,4 +61,3 @@ HTTPClient http;
 
         http.end();
 }
-
