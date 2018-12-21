@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NiXieCLocK</title>
+    <meta name="Description" content="Une horloge basée sur un esp8266 et des tubes Nixies">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00878f">
+    <meta charset="UTF-8" /> 
+    <link rel="manifest" href="/manifest.json">
+    <link rel="Shortcut Icon" type="image/ico" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144x144.png">
+    <!--link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"-->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+    <script src="/js/microajax.js"></script>
+    <!--script src="/js/WebSocket.js"></script-->
+</head>
+
+<body>
+ <center>
+<strong>Network Information</strong>
+	<hr>
+<table border="0"  cellspacing="0" cellpadding="3" style="width:310px" >
+<tr>
+  <td align="left">SSID :</td>
+  <td><span id="x_ssid"></span></td>
+ </tr>
+ <tr>
+  <td align="left">IP :</td>
+  <td><span id="x_ip"></span></td>
+ </tr>
+ <tr>
+  <td align="left">Netmask :</td>
+  <td><span id="x_netmask"></span></td>
+ </tr>
+ <tr>
+  <td align="left">Gateway :</td>
+  <td><span id="x_gateway"></span></td>
+ </tr>
+ <tr>
+  <td align="left">DNS :</td>
+  <td><span id="x_dns"></span></td>
+ </tr>
+ <tr>
+  <td align="left">Mac :</td>
+  <td><span id="x_mac"></span></td>
+ </tr>
+</table>
+
+<a href="/admin.html"><h2 class=collapsible style="width:200px">EXIT</h2></a>
+
+ </center>
+
+<script>
+function GetState()
+        {
+                setValues("/wifivalues");
+        }
+
+        {
+                load("style.css","css", function()
+                {
+                        load("microajax.js","js", function()
+                        {
+                                GetState();
+                        });
+                });
+        }
+       function load(e, t, n) {
+                if ("js" == t) {
+                        var a = document.createElement("script");
+                        a.src = e,
+                        a.type = "text/javascript",
+                        a.async = !1,
+                        a.onload = function () { n() },
+                        document.getElementsByTagName("head")[0].appendChild(a)
+                } 
+        }
+
+window.onload = GetState ;
+
+</script>
+<script language="javascript" type="text/javascript">
+    var wsUri = "ws://"+location.host+":81/";
+    var output;
+
+    function init() {
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function (evt) {
+            console.log("CONNECTED");
+        };
+        websocket.onclose = function (evt) {
+            console.log("DISCONNECTED");
+        };
+        websocket.onmessage = function (evt) {
+            if (evt.data[0] == "T") {
+                var time;
+                time = evt.data.substring(1);
+                document.getElementById("x_ntp_time").innerHTML = time;
+            };
+            if (evt.data[0] == "D") {
+                var date;
+                date = evt.data.substring(1);
+                document.getElementById("x_ntp_date").innerHTML = date;
+            };
+            if (evt.data[0] == "S") {
+                var sync;
+                sync = evt.data.substring(1);
+                document.getElementById("x_ntp_sync").innerHTML = sync;
+            };
+        };
+        websocket.onerror = function (evt) {
+            console.log("ERROR: " + evt.data);
+        };
+    }
+
+    window.addEventListener("load", init, true);
+</script>
+
+</body>
+</html>

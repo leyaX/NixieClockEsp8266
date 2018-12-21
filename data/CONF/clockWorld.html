@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<title>NiXieCLocK</title>
+<meta name="Description" content="Une horloge basée sur un esp8266 et des tubes Nixies">
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'> 
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00878f">
+<meta charset="UTF-8" /> 
+<link rel="manifest" href="/manifest.json">
+<link rel="Shortcut Icon" type="image/ico"  href="/images/favicon.ico">
+<link rel="icon" type="image/png" sizes="144x144"  href="/images/favicon-144x144.png">
+<!--link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"-->
+<link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+<script src="/js/microajax.js"></script>
+<!--script src="/js/WebSocket.js"></script-->
+
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.1/moment-timezone-with-data-2010-2020.min.js"></script>
+
+</head>
+<body>
+
+    <center>
+<h1>Horloge Mondiale</h1>
+    <div class="">
+
+	<div id="divUTC"></div><br/>
+	  UTC time<br/>
+	<div id="divLocal">
+	</div>    
+	<br/>Thailand date time<br/>
+	<div id="divThai">
+	</div>  
+	<br/>America date time<br/>
+	<div id="divUsa">
+	</div>
+	<br/>GERMANY date time<br/>
+	<div id="divGer">
+	</div>
+	<br/>Australie date time<br/>
+	<div id="divAus">
+	</div>
+
+</div>    <!-- Fin content Horloge Mondiale -->
+    </center>
+
+<script>
+   $(window).load(function(){
+      
+$(function(){
+  setInterval(function(){
+    var divUtc = $('#divUTC');
+    var divLocal = $('#divLocal');  
+    //put UTC time into divUTC  
+    divUtc.text(moment.utc().format('YYYY-MM-DD HH:mm:ss'));      
+    
+    //get text from divUTC and conver to local timezone  
+    var localTime  = moment.utc(divUtc.text()).toDate();
+    localTime = moment(localTime).format('YYYY-MM-DD HH:mm:ss');
+    divLocal.text(localTime);  
+      
+    $('#divThai').text(moment.tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss'));
+    $('#divUsa').text(moment.tz('America/Los_Angeles').format('YYYY-MM-DD HH:mm:ss'));
+    $('#divGer').text(moment.tz('Europe/Berlin').format('YYYY-MM-DD HH:mm:ss'));
+    $('#divAus').text(moment.tz('Australia/Sydney').format('YYYY-MM-DD HH:mm:ss'));
+
+  },1000);
+});
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NiXieCLocK</title>
+    <meta name="Description" content="Une horloge basée sur un esp8266 et des tubes Nixies">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00878f">
+    <meta charset="UTF-8" /> 
+    <link rel="manifest" href="/manifest.json">
+    <link rel="Shortcut Icon" type="image/ico"  href="/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="144x144" href="/images/favicon-144x144.png">
+    <!--link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"-->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/bootstrap.icons.css">
+</head>
+
+<body>
+   
+   <center>
+<button class="collapsible" id="alarmProgOLD"><h1>Alarme</h1></button>
+ <div class="content">
+    
+    <div align="right" style="margin-bottom:20px">     <!-- TOOLBAR ALARM --> 
+            <!--a href=# onclick="includeHTML('/alarm.html', 'xhttpAlarm');"><em class="icon-bell"></em></a--> 
+            <a href=# onclick="editTimerOrAlarm('Alarm')"><em class="icon-plus"></em></a>
+            <a href=# onclick="removeTimerOrAlarm('Alarm')"><em class="icon-trash"></em></a>
+    </div>
+
+   <div style="margin:10px;">
+
+     <div id="music_choiceAlarm" class="newmusic">   
+       <div align="right" style="">          <!-- TOOLBAR MUSIC & RADIO -->
+        <a href=# onclick="affRadio('Alarm')"><em class="icon-globe"></em></a>
+        <a href=# onclick="affMusic('Alarm')"><em class="icon-music"></em></a>
+        <a href=# onclick="help('radio')"><em class="icon-question-sign"></em></a>
+       </div>
+
+       <div id="affMusicAlarm" style="display:block">         <!-- Affiche MUSIC display block par default -->
+          <strong align=center>Music</strong><br>
+
+	     <select id="mySelectMusicAlarm" onChange="setMusic('Alarm')" class="selectmusic">
+	        <option  value="1" selected>Metallica</option>
+		<option  value="2">Poules</option>
+		<option  value="3">Sonnerie 1</option>
+		<option  value="4">Sonnerie 2</option>
+		<option  value="5">Sonnerie 3</option>
+		<option  value="6">Sonnerie 4</option>
+		<option  value="7">Sonnerie 5</option>
+		<option  value="8">Sonnerie 6</option>
+		<option  value="9">Sonnerie 7</option>
+		<option value="10">Sonnerie 8</option>
+		<option value="11">Sonnerie 9</option>
+		<option value="12">Sonnerie 10</option>
+		<option value="13">Sonnerie 11</option>
+		<option value="14">Sonnerie 12</option>
+		<option value="15">Sonnerie 13</option>
+		<option value="16">Sonnerie 14</option>
+		<option value="17">Sonnerie 15</option>
+		<option value="18">Sonnerie 16</option>
+		<option value="19">Sonnerie 17</option>
+		<option value="20">Sonnerie 18</option>
+		<option value="21">Sonnerie 19</option>
+		<option value="22">Sonnerie 20</option>
+		<option value="23">Sonnerie 21</option>
+	     </select>
+
+       </div>  
+
+        <div id="affRadioAlarm" style="display:none">        <!-- Affiche RADIO display none par default -->
+          <strong align=center>Radio</strong><br>
+
+	     <select id="mySelectRadioAlarm" onChange="setRadio('Alarm')" class="selectmusic">
+	        <option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7" selected>7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+	     </select>
+ 
+       </div>
+   
+     </div>      <!-- Fin music_choiceAlarm -->   
+
+    <div id="xhttpAlarm" style=""  includeAlarm-html="/alarm.html"> <!-- NEW ALARM -->
+    </div> 
+
+     <div id="text_Alarm" class="newtext"> <!-- CREATION ALARM -->
+        <p id="new_Alarm" style="margin-top:0px;"></p>
+     </div>
+
+    <div id="cmd_Alarm" style="display:none;margin-bottom:15px;">  <!-- COMMANDES ALARME -->
+           <input id="repeatAlarm" class="inputChrono" type='submit' name='REPEAT' onclick="repeatALARM();" value='REPEAT'>
+           <input id="stopAlarm" class="inputChrono" type='submit' name='STOP' onclick="stopALARM();" value='STOP'>
+    </div>
+
+ </div>      
+</div> <!-- content ALARME -->
+   </center>
+
+     <center>
+ <button class="collapsible"><h1>Lampes NiXiE</h1></button>
+    <div class="content">
+
+       <div class="toogleL" style="margin-top:10px;">
+            <input type="time" id="myTimeNixie" value="23:59">
+       </div>
+
+       <div class="toogleR" style="margin-top:20px;">
+            <input class="inputChrono" type="submit" onclick="nixieDown();" value="DOWN">
+            <input class="inputChrono" type="submit" onclick="nixieUp();" value="UP">
+       </div>
+
+       <div class="toogleR">
+          <p style="padding-right:20px"><span id="nixieOFF"><br></span></p> <!-- TEXT NIXIE ON/OFF -->
+       </div>
+
+   <div id="xhttpToogleNixie" includeToogleNixie-html="/nixieToogle.html">    <!-- TOOGLE SWITCH NIXIE -->
+   </div> 
+
+</div> <!-- content LAMPES NIXIE -->
+    </center>
+
+    <center>
+<button class="collapsible"><h1>Mp3</h1></button>
+ <div class="content">
+	 <div style="margin-bottom:20px;">
+		<input id="playMP3" class="inputChrono" type="submit" style="" onclick="MP3('Play');" value="PLAY">
+		<input id="pauseMP3" class="inputChrono" type="submit" style="" onclick="pauseMP3();" value="PAUSE">
+		<input id="stopMP3" class="inputChrono" type="submit" style="" onclick="MP3('Stop');" value="STOP">
+         </div>
+   <table>
+    <tr>
+     <td>
+       <input class="enabled" id="vol" type="range" min="0" max="30" step="1" style="width:280px" oninput="sendVOL();" onchange="volEffect();" value="15">
+       <span id="displayVol" >15</span></td>
+    </tr>
+   </table>
+ </div> <!-- Fin content MP3 -->
+    </center>
+
+    <center>
+<button class="collapsible"><h1>Chrono</h1></button>
+     <div class="content">
+       <div style="margin-bottom:15px">
+     	       <input id="initCHRONO" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('INIT', 'CHRONO');" value="INIT">
+   	       <input id="playCHRONO" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('PLAY', 'CHRONO');" value="PLAY">
+  	       <input id="pauseCHRONO" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('PAUSE', 'CHRONO');" value="PAUSE">
+   	       <input id="stopCHRONO" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('STOP', 'CHRONO');" value="STOP">
+       </div>
+     </div> <!-- Fin content Chrono -->
+   </center>
+   
+   <center>
+<button class="collapsible"><h1>Minuteur</h1></button>
+  <div id=minuteur" class="content">
+   
+    <div align="right" style="margin-bottom:20px">         <!-- TOOLBAR TIMER --> 
+            <!--a href=# onclick="includeHTML('/timer.html', 'xhttpTimer');"><em class="icon-time"></em></a-->
+            <a href=# onclick="editTimerOrAlarm('Timer')"><em class="icon-plus"></em></a>
+            <a href=# onclick="removeTimerOrAlarm('Timer')"><em class="icon-trash"></em></a>
+    </div> 
+
+    <div style="margin:10px;">
+
+    <div id="music_choiceTimer" class="newmusic">   
+       <div align="right" style="">          <!-- TOOLBAR MUSIC & RADIO -->
+        <a href=# onclick="affRadio('Timer')"><em class="icon-globe"></em></a>
+        <a href=# onclick="affMusic('Timer')"><em class="icon-music"></em></a>
+        <a href=# onclick="help('radio')"><em class="icon-question-sign"></em></a>
+       </div>
+
+
+       <div id="affMusicTimer" style="display:block">         <!-- Affiche MUSIC display block par default -->
+          <strong align=center>Music</strong><br>
+
+	     <select id="mySelectMusicTimer" onChange="setMusic('Timer')" class="selectmusic">
+	        <option  value="1">Metallica</option>
+		<option  value="2" selected>Poules</option>
+		<option  value="3">Sonnerie 1</option>
+		<option  value="4">Sonnerie 2</option>
+		<option  value="5">Sonnerie 3</option>
+		<option  value="6">Sonnerie 4</option>
+		<option  value="7">Sonnerie 5</option>
+		<option  value="8">Sonnerie 6</option>
+		<option  value="9">Sonnerie 7</option>
+		<option value="10">Sonnerie 8</option>
+		<option value="11">Sonnerie 9</option>
+		<option value="12">Sonnerie 10</option>
+		<option value="13">Sonnerie 11</option>
+		<option value="14">Sonnerie 12</option>
+		<option value="15">Sonnerie 13</option>
+		<option value="16">Sonnerie 14</option>
+		<option value="17">Sonnerie 15</option>
+		<option value="18">Sonnerie 16</option>
+		<option value="19">Sonnerie 17</option>
+		<option value="20">Sonnerie 18</option>
+		<option value="21">Sonnerie 19</option>
+		<option value="22">Sonnerie 20</option>
+		<option value="23">Sonnerie 21</option>
+	     </select>
+
+       </div>  
+
+        <div id="affRadioTimer" style="display:none">        <!-- Affiche RADIO display none par default -->
+          <strong align=center>Radio</strong><br>
+
+	     <select id="mySelectRadioTimer" onChange="setRadio('Timer')" class="selectmusic">
+	        <option value="1">01</option>
+		<option value="2">02</option>
+		<option value="3">03</option>
+		<option value="4">04</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7 selected">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+	     </select>
+ 
+       </div>
+  
+   </div>     <!-- Fin music_choiceTimer -->   
+      
+      <div id="text_Timer" class="newtext">
+        <p id="new_Timer" style="margin-top:0px;"></p>
+      </div>
+ 
+     <div id="xhttpTimer" includeTimer-html="/timer.html">
+     </div> 
+
+    </div>
+
+  <div id="cmd_Timer" style="margin-bottom:15px;">
+   <input id="initTIMER" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('INIT', 'TIMER');" value="INIT">
+   <input id="playTIMER" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('PLAY', 'TIMER');" value="PLAY">
+   <input id="pauseTIMER" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('PAUSE', 'TIMER');" value="PAUSE">
+   <input id="stopTIMER" class="inputChrono" type="submit" style="background-color:#999" onclick="timerCom('STOP', 'TIMER');" value="STOP">
+  </div>
+ 
+ </div>    <!-- Fin content Minuteur -->
+    </center> 
+
+    <center>
+<button class="collapsible"><h1>Led Control</h1></button>
+   <div class="content">
+      <table>
+       <tr>
+         <td style="width:14.4px; text-align: right">R: </td>
+         <td><input class="enabled" id="r" type="range" min="0" max="1023" step="1" oninput="sendRGB();" value="0"></td>
+       </tr>
+       <tr>
+         <td style="width:14.4px; text-align: right">G: </td>
+         <td><input class="enabled" id="g" type="range" min="0" max="1023" step="1" oninput="sendRGB();" value="0"></td>
+       </tr>
+       <tr>
+         <td style="width:14.4px; text-align: right">B: </td>
+         <td><input class="enabled" id="b" type="range" min="0" max="1023" step="1" oninput="sendRGB();" value="0"></td>
+       </tr>
+      </table>
+  
+      <p style="margin:8px 0px">
+          <button id="rainbow" class="button" style="background-color:#999" onclick="rainbowEffect();">Rainbow</button>
+      </p>
+
+  </div> <!-- Fin content Led Control -->
+    </center>
+
+    <center> <!-- Configuration -->
+	<button class="nocollapsible" onclick="window.location.href='admin.html'"><h1>Configuration</h1></button>
+    </center>
+
+<!-- ---------------------------------------------------------------------------------------
+                                    JAVASCRIPT
+ ------------------------------------------------------------------------------------------- -->
+<script src="/js/WebSocket.js"></script>
+
+<script>  /* ----- COLLAPSIBLE ---------- */
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+
+var acc = document.getElementsByClassName("collapsible");
+var panel = document.getElementsByClassName('content');
+
+for (var i = 0; i < acc.length; i++) {
+    acc[i].onclick = function() {
+        var setClasses = !this.classList.contains('active');
+        setClass(acc, 'active', 'remove');
+        setClass(panel, 'show', 'remove');
+
+        if (setClasses) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+}
+
+function setClass(els, className, fnName) {
+    for (var i = 0; i < els.length; i++) {
+        els[i].classList[fnName](className);
+    }
+}
+
+});
+</script>
+
+<script>  /* ---------- AJAX ----------- */
+includeHTML('/alarm.html', 'xhttpAlarm');
+includeHTML('/timer.html', 'xhttpTimer');
+includeHTML('/nixieToogle.html','xhttpToogleNixie');
+</script>
+
+</body>
+</html>

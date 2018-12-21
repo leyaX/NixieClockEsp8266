@@ -1,0 +1,353 @@
+
+/* ------------------------------------------------
+
+-------------------------------------------------- */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+blockquote, q { 
+     quotes: none; 
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+     content: ''; content: none; 
+}
+
+strong { 
+     font-weight: bold; } 
+
+a { 
+     color: white; text-decoration: none; 
+}
+
+a:hover { 
+     text-decoration: none; 
+}
+a:visited { 
+     text-decoration: none; 
+}
+
+header {
+     background-color: #00878F;
+     color: white;
+     padding: 6px;
+     box-shadow: 1px 1px 5px #555555;
+     position: relative;
+}
+
+h1 {
+     margin: 0px;
+     font-size: 36px;
+     padding: 10px;
+}
+
+center {
+     width: 420px;
+     max-width: 100%;
+     margin: 0px auto;
+     color: #444;
+}
+
+center>div {
+     box-shadow: 1px 1px 5px #555555;
+}
+
+center>span {
+     text-align: right;
+}
+
+table {
+     margin: 0px 24px 0px 12px;
+}
+
+td {
+     color: #555;
+     width: 100%;
+     padding-bottom: 10px;
+}
+
+tr {
+     width: 100%;
+}
+
+.paraImg  {                        /* toolbar img */
+    background: #00878F;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 16px;
+    display: block;
+    transition: none;
+}
+
+.inputChrono {
+    text-decoration: none;
+    border: none;
+    color: white;
+    background-color: #00878F;
+    padding: 2px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 1px 1px 6px #555;
+    outline: none;
+    margin: 12px 6px 0px auto;
+    display: inline-block;
+    width: 70px;
+    height:30px;
+}
+
+.button {
+    text-decoration: none;
+    border: none;
+    color: white;
+    background-color: #00878F;
+    padding: 6px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 1px 1px 6px #555;
+    outline: none;
+    margin: 12px auto 0px auto;
+    display: inline-block;
+    width: 200px;
+}
+
+.button:hover {
+    box-shadow: 1px 1px 3px #444;
+}
+
+input[type=image] {
+    margin-right: 15px;
+    border:0px;
+    outline:  none;
+}
+
+input[type=time]{
+    padding: 6px;
+    margin: 5%;
+    font-size: 24px;
+    width: 80%;
+    height:40px;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    margin: 6px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 0px;
+    height: 25px;
+    width: 25px;
+    margin-top: -10px;
+    border-radius: 12.5px;
+}
+
+input.disabled[type=range]::-webkit-slider-thumb {
+    background: #999;
+}
+
+input.enabled[type=range]::-webkit-slider-thumb {
+    background: #00878F;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px #777, 0px 0px 1px #777;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: inherit;
+    height: 4px;
+    background: #ccc;
+    border-radius: 1px;
+}
+
+input.enabled[type=range]::-webkit-slider-runnable-track {
+    cursor: pointer;
+}
+
+/* -----------------------------------------
+                   Replis              
+------------------------------------------ */
+
+.collapsible {
+    background-color: #00878F;
+    position: relative;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    padding: 6px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    width: 100%;
+    box-shadow: 1px 1px 5px #555555;
+    text-align: center;
+    outline: none;
+}
+
+.nocollapsible {
+    background-color: #00878F;
+    position: relative;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    padding: 6px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    width: 100%;
+    box-shadow: 1px 1px 5px #555555;
+    text-align: center;
+    outline: none;
+}
+
+.active, .collapsible:hover, .nocollapsible:hover {
+    background-color: #999;
+}
+
+.content {
+    margin:0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    max-height: 0;
+    opacity:0;
+}
+
+.content.show {
+    padding:10px;
+    opacity:1;
+    max-height:500px;
+}
+
+/* ------------------------------------------------------ 
+                        TOOGLE                           
+------------------------------------------------------- */
+.toogleL {
+    box-shadow: none;
+    padding:0;
+    border:none;
+    width: 50%;
+    float:left;
+    text-align:left;
+}
+
+.toogleR {
+    box-shadow: none;
+    padding:0;
+    border:none;
+    width: 50%;
+    float:right;
+    text-align:right;
+}
+
+
+.switch {       
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch input {  
+    display:none;
+}
+
+.slider {              
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s ease-in;
+    border-radius: 17px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s ease-in-out;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(17.5px);
+    -ms-transform: translateX(17.5px);
+    transform: translateX(17.5px);
+}
+ 
+/*  ----------------------------------------------- */
+
+.retour {
+    background-color:#00878f;
+    width:50px;
+    height:25px;
+    float:right;
+    box-shadow: 1px 1px 5px #555555;
+    cursor: pointer;
+    margin-top: 6px;
+    outline: none;
+    padding-top:12px;
+}
+
+.active, .retour:hover {
+    background-color: #999;
+}
+
+/* ---------------------------------- */
+ /* for new alarm or timer */
+
+.new {
+  background-color: #F5F5F5;
+  display:none;
+}
+
+.newmusic {
+  background-color: #F5F5F5;
+  display:none;
+  padding:0px 6px 10px 6px;
+  margin-bottom:0px;
+border-radius: 10px 10px 0px 0px;
+}
+
+.newtext {
+  background-color: #F5F5F5;
+  display:none;
+  padding-top:5px;
+  padding-bottom:5px;
+border-radius: 0px 0px 10px 10px;
+}
+
+.selectmusic {
+  width:250px;
+  margin:20px 0 0 0;
+  font-size:20px;
+  color:black;
+  margin-bottom:0px;
+  margin-top:5px; 
+  outline:0;
+}
+
+.text_new {
+  font-size:20px;
+  width:250px;
+  margin-top:5px;
+}
+

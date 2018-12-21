@@ -1,0 +1,27 @@
+{
+  "name": "Nixie clock",
+  "short_name": "NixieClock",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "theme_color": "#00878f",
+  "lang": "en",
+  "background_color": "#00878f",
+  "icons":[
+   {
+    "src": "images/favicon.ico",
+    "sizes": "36x36",
+    "type": "image/png"
+   },
+   {
+    "src": "images/clock-240.png",
+    "sizes": "240x240",
+    "type": "image/png"
+   },
+   {
+    "src": "images/clock-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+   }]
+}

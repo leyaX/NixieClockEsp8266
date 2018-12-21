@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>NiXieCLocK</title>
+    <meta name="Description" content="Une horloge basée sur un esp8266 et des tubes Nixies">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'> 
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00878f">
+    <meta charset="UTF-8" /> 
+    <link rel="manifest" href="/manifest.json">
+    <link rel="Shortcut Icon" type="image/ico" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="144x144"  href="/images/favicon-144x144.png">
+    <!--link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"-->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+    <script src="/js/microajax.js"></script>
+    <!--script src="/js/WebSocket.js"></script-->
+</head>
+
+<body>
+ <center>		
+<strong>Network Configuration</strong>
+<hr>
+Connect to Router with these settings:<br>
+<form action="/submitWifi" method="get">
+<table border="0"  cellspacing="0" cellpadding="3" style="" >
+ <tr>
+  <td align="left">SSID:</td>
+  <td>
+   <input type="text" id="ssid" name="ssid" value="">
+  </td>
+ </tr>
+ <tr>
+  <td align="left">Password:</td>
+  <td><input type="password" id="password" name="pass" value=""></td>
+ </tr>
+ <!--tr>
+  <td align="left">DHCP:</td>
+  <td><input type="checkbox" id="dhcp" name="dhcp"></td>
+ </tr-->
+</table>
+ <input type="submit" class="collapsible" style="width:200px;border:none; -webkit-appearance: none" value="Save & Restart">
+<hr>
+  <strong>Connection State:</strong>
+ <div id="connectionstate" style="margin:10px 0 10px 0" >N/A</div>
+<hr>
+  <strong>Networks:</strong>
+<br>
+<table border="0"  cellspacing="3" style="width:310px" >
+ <tr>
+  <td>
+   <div id="networks">Scanning...</div>
+  </td>
+ </tr>
+</table>
+<a href="/admin.html"  class="">
+	<h2 class="collapsible" style="width:200px">EXIT</h2>
+</a>             
+</form>
+</center>
+
+
+	<script>
+
+		function GetState()
+		{
+			setValues("/connectionstate");
+		}
+		function selssid(value)
+		{
+			document.getElementById("ssid").value = value;
+		}
+               window.onload = GetState;
+	</script>
+</body>
+</html>

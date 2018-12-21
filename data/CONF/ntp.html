@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<title>NiXieCLocK</title>
+<meta name="Description" content="Une horloge basée sur un esp8266 et des tubes Nixies">
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'> 
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00878f">
+<meta charset="UTF-8" /> 
+<link rel="manifest" href="/manifest.json">
+<link rel="Shortcut Icon" type="image/ico" href="/images/favicon.ico">
+<link rel="icon" type="image/png" sizes="144x144"  href="/images/favicon-144x144.png">
+<!--link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"-->
+<link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+<script src="/js/microajax.js"></script>
+<!--script src="/js/WebSocket.js"></script-->
+
+</head>
+<body>
+ <center>		
+<h1>Ntp Information</h1>
+     <hr>
+<table border="0"  cellspacing="0" cellpadding="3" style="width:310px" >
+ <tr>
+  <td align="left">NTP Date:</td>
+  <td><span id="x_ntp_date"></span></td>
+ </tr>
+ <tr>
+  <td align="left">NTP Time:</td>
+  <td><span id="x_ntp_time"></span></td>
+ </tr>
+ <tr>
+  <td align="left">Last sync:</td>
+  <td><span id="x_ntp_sync"></span></td>
+ </tr>
+</table>
+
+<input id="setntp" class="inputChrono" type="submit" style="width:150px" onclick="setNtp();" value="NTP Update RTC">
+<hr>
+<div style= box-shadow:none>
+ <a href="/admin.html"><h2 class=collapsible style=width:200px>EXIT</h2></a>
+</div>
+ </center>
+
+<script>
+function GetState()
+        {
+                setValues("/ntpvalues");
+        }
+
+        {
+                load("style.css","css", function()
+                {
+                        load("microajax.js","js", function()
+                        {
+                                GetState();
+                        });
+                });
+        }
+       function load(e, t, n) {
+                if ("js" == t) {
+                        var a = document.createElement("script");
+                        a.src = e,
+                        a.type = "text/javascript",
+                        a.async = !1,
+                        a.onload = function () { n() },
+                        document.getElementsByTagName("head")[0].appendChild(a)
+                } 
+        }
+
+window.onload = GetState ;
+</script>
+
+<script language="javascript" type="text/javascript">
+    var wsUri = "ws://"+location.host+":81/";
+    var output;
+
+    function init() {
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function (evt) {
+            console.log("CONNECTED");
+        };
+        websocket.onclose = function (evt) {
+            console.log("DISCONNECTED");
+        };
+        websocket.onmessage = function (evt) {
+            if (evt.data[0] == "T") {
+                var time;
+                time = evt.data.substring(1);
+                document.getElementById("x_ntp_time").innerHTML = time;
+            };
+            if (evt.data[0] == "D") {
+                var date;
+                date = evt.data.substring(1);
+                document.getElementById("x_ntp_date").innerHTML = date;
+                console.log(date);  
+            };
+            if (evt.data[0] == "S") {
+                var sync;
+                sync = evt.data.substring(1);
+                document.getElementById("x_ntp_sync").innerHTML = sync;
+            };
+        };
+        websocket.onerror = function (evt) {
+            console.log("ERROR: " + evt.data);
+        };
+    }
+
+    window.addEventListener("load", init, true);
+</script>
+
+<script> 
+function setNtp(){
+console.log("Set NTP");
+websocket.send("SETNTP");
+}
+</script>
+
+</body>
+</html>

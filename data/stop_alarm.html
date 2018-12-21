@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="all" href="/css/main.css">
+<style>
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+     user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    background-color: white;
+    color: black;
+    padding: 50px 50px 60px 50px;
+    border-radius:10px;
+    margin-top:200px;
+    background-color:gray;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    width:450px; 
+    height:100px;
+    content: "";
+    position: absolute;
+
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    box-shadow:none;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+</style>
+</head>
+<body  align=center onload="myFunction()">
+
+<div class="popup"  >
+  <div class="popuptext" id="myPopup">    
+           <input id="repeatAlarm" class="inputChrono" type='submit' name='REPEAT' onclick="repeatALARM();window.location.assign('/')" value='REPEAT'>
+           <input id="stopAlarm" class="inputChrono" type='submit' name='STOP' onclick="stopALARM();window.location.assign('/')" value='STOP'>
+    </div>
+</div>
+
+<script>
+// When the user clicks on div, open the popup
+function myFunction() {
+    setTimeout(2000);
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+</script>
+<script src="/js/WebSocket.js"></script>
+</body>
+</html>
